@@ -1,8 +1,8 @@
 import { Command } from 'commander'
-import { setupAddCommand } from './commands/add'
-import { setupSearchCommand } from './commands/search'
-import { setupGetCommand } from './commands/get'
-import { setupDeleteCommand } from './commands/delete'
+import { setupAddCommand } from './src/commands/add'
+import { setupSearchCommand } from './src/commands/search'
+import { setupGetCommand } from './src/commands/get'
+import { setupDeleteCommand } from './src/commands/delete'
 
 const program = new Command()
 
