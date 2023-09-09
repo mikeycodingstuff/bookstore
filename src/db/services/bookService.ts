@@ -5,8 +5,8 @@ export async function createBook(
   title: string,
   author: string,
   genre: string,
-  price: string,
-  quantity: string,
+  price: number,
+  quantity: number,
 ) {
   const prisma = new PrismaClient()
 
@@ -16,8 +16,8 @@ export async function createBook(
         title,
         author,
         genre,
-        price: parseFloat(price),
-        quantity: parseInt(quantity),
+        price,
+        quantity,
       },
     })
 

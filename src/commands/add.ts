@@ -18,8 +18,22 @@ async function handleAddBook(
   price: string,
   quantity: string,
 ) {
+  const parsedPrice = parseFloat(price)
+  const parsedQuantity = parseInt(quantity)
+
+  if (isNaN(parsedPrice) || isNaN(parsedQuantity)) {
+    console.error('Invalid price or quantity. Please provide valid numbers.')
+    return
+  }
+
   try {
-    const book = await createBook(title, author, genre, price, quantity)
+    const book = await createBook(
+      title,
+      author,
+      genre,
+      parsedPrice,
+      parsedQuantity,
+    )
 
     printer.line('Book Added', book.title, ['bgMagenta'])
   } catch (error) {
