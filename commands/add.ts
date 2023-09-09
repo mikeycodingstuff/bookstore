@@ -11,16 +11,25 @@ function handleAddBookError(error: unknown) {
   }
 }
 
+async function handleAddBook(
+  title: string,
+  author: string,
+  genre: string,
+  price: string,
+  quantity: string,
+) {
+  try {
+    const book = await createBook(title, author, genre, price, quantity)
+
+    printer.line('Book Added', book.title, ['bgMagenta'])
+  } catch (error) {
+    handleAddBookError(error)
+  }
+}
+
 export function setupAddCommand(program: Command) {
   program
     .command('add <title> <author> <genre> <price> <quantity>')
     .description('Add a book to the inventory')
-    .action(async (title, author, genre, price, quantity) => {
-      try {
-        const book = await createBook(title, author, genre, price, quantity)
-        printer.log(`Added book: ${book.title}`, 'green')
-      } catch (error) {
-        handleAddBookError(error)
-      }
-    })
+    .action(handleAddBook)
 }

@@ -1,5 +1,6 @@
 import { Command } from 'commander'
 import { PrismaClient } from '@prisma/client'
+import printer from '../utilities/printer'
 
 export function setupGetCommand(program: Command) {
   program
@@ -16,14 +17,18 @@ export function setupGetCommand(program: Command) {
         })
 
         if (book) {
-          console.log('Book Details:')
-          console.log(`Title: ${book.title}`)
-          console.log(`Author: ${book.author}`)
-          console.log(`Genre: ${book.genre}`)
-          console.log(`Price: $${book.price}`)
-          console.log(`Quantity: ${book.quantity}`)
+          const bookDetails = [
+            `Title: ${book.title}`,
+            `Author: ${book.author}`,
+            `Genre: ${book.genre}`,
+            `Price: $${book.price}`,
+            `Quantity: ${book.quantity}`,
+          ]
+
+          printer.log('Book Details:', ['magenta', 'inverse'])
+          printer.log(bookDetails.join('\n'))
         } else {
-          console.log(`Book with ID ${id} not found.`)
+          printer.log(`Book with ID ${id} not found.`, ['red'])
         }
       } catch (error) {
         console.error('Error getting book:', error)
