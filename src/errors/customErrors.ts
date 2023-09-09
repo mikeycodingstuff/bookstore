@@ -19,4 +19,11 @@ class BookNotFoundError extends Error {
   }
 }
 
-export { DuplicateBookError, AddBookError, BookNotFoundError }
+class NoBooksError extends Error {
+  constructor() {
+    super('No books found.')
+    this.name = 'NoBooksError'
+  }
+}
+
+export { DuplicateBookError, AddBookError, BookNotFoundError, NoBooksError }

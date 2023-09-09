@@ -3,6 +3,7 @@ import {
   DuplicateBookError,
   AddBookError,
   BookNotFoundError,
+  NoBooksError,
 } from '../../errors/customErrors'
 
 export async function createBook(
@@ -58,6 +59,28 @@ export async function getBookById(id: number) {
   } catch (error) {
     if (!(error instanceof BookNotFoundError)) {
       console.error('Error getting book:', error)
+    } else {
+      throw error
+    }
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+export async function getAllBooks() {
+  const prisma = new PrismaClient()
+
+  try {
+    const books = await prisma.book.findMany()
+
+    if (books) {
+      return books
+    }
+
+    throw new NoBooksError()
+  } catch (error) {
+    if (!(error instanceof NoBooksError)) {
+      console.error('Error getting books:', error)
     } else {
       throw error
     }
