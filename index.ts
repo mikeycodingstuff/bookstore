@@ -1,11 +1,8 @@
-import { PrismaClient } from '@prisma/client'
 import { Command } from 'commander'
 import { setupAddCommand } from './commands/add'
 import { setupSearchCommand } from './commands/search'
 import { setupGetCommand } from './commands/get'
 import { setupDeleteCommand } from './commands/delete'
-
-const prisma = new PrismaClient()
 
 const program = new Command()
 
