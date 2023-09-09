@@ -1,29 +1,26 @@
 import { Command } from 'commander'
-import { PrismaClient } from '@prisma/client'
+import printer from '../utilities/printer'
+import { AddBookError, DuplicateBookError } from '../errors/customErrors'
+import { createBook } from '../db/services/bookService'
+
+function handleAddBookError(error: unknown) {
+  if (error instanceof DuplicateBookError || error instanceof AddBookError) {
+    printer.error(error.name, error.message)
+  } else {
+    console.error('Error adding book:', error)
+  }
+}
 
 export function setupAddCommand(program: Command) {
   program
     .command('add <title> <author> <genre> <price> <quantity>')
     .description('Add a book to the inventory')
     .action(async (title, author, genre, price, quantity) => {
-      const prisma = new PrismaClient()
-
       try {
-        const book = await prisma.book.create({
-          data: {
-            title,
-            author,
-            genre,
-            price: parseFloat(price),
-            quantity: parseInt(quantity),
-          },
-        })
-
-        console.log(`Added book: ${book.title}`)
+        const book = await createBook(title, author, genre, price, quantity)
+        printer.log(`Added book: ${book.title}`, 'green')
       } catch (error) {
-        console.error('Error adding book:', error)
-      } finally {
-        await prisma.$disconnect()
+        handleAddBookError(error)
       }
     })
 }
