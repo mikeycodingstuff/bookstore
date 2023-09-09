@@ -6,7 +6,7 @@ export async function createBook(
   author: string,
   genre: string,
   price: string,
-  quantity: string
+  quantity: string,
 ) {
   const prisma = new PrismaClient()
 

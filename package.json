@@ -2,6 +2,9 @@
   "name": "bookstore",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "format": "prettier --write ."
+  },
   "devDependencies": {
     "bun-types": "latest"
   },
