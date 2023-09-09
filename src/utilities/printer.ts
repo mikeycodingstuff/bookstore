@@ -5,7 +5,7 @@ import chalk, {
 } from 'chalk'
 
 const error = (name: string, message: string) => {
-  console.error(chalk.white.bgRed(`${name}:`), `\n${message}`)
+  console.error(chalk.red(`${name}:`), message)
 }
 
 const formatMessage = (
