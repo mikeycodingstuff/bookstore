@@ -7,9 +7,16 @@ class DuplicateBookError extends Error {
 
 class AddBookError extends Error {
   constructor() {
-    super('Error Adding book.')
+    super('Error adding book.')
     this.name = 'AddBookError'
   }
 }
 
-export { DuplicateBookError, AddBookError }
+class BookNotFoundError extends Error {
+  constructor(id: number) {
+    super(`Book with ID ${id} not found.`)
+    this.name = 'BookNotFoundError'
+  }
+}
+
+export { DuplicateBookError, AddBookError, BookNotFoundError }
