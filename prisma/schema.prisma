@@ -17,4 +17,6 @@ model Book {
   genre    String
   price    Float
   quantity Int
+
+  @@unique([title, author])
 }
